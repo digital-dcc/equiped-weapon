@@ -1,20 +1,20 @@
 ---
 layout: example.11ty.cjs
-title: <my-element> ⌲ Examples ⌲ Basic
+title: <hit-points> ⌲ Examples ⌲ Basic
 tags: example
 name: Basic
 description: A basic example
 ---
 
 <style>
-  my-element p {
+  hit-points p {
     border: solid 1px blue;
     padding: 8px;
   }
 </style>
-<my-element>
+<hit-points>
   <p>This is child content</p>
-</my-element>
+</hit-points>
 
 <h3>CSS</h3>
 
@@ -28,7 +28,7 @@ p {
 <h3>HTML</h3>
 
 ```html
-<my-element>
+<hit-points>
   <p>This is child content</p>
-</my-element>
+</hit-points>
 ```
