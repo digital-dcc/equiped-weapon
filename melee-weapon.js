@@ -8,7 +8,7 @@ import {LitElement, html} from 'lit';
 import '@digital-dcc/stat-display';
 import {modifierFor} from './modifier.js';
 import {diceChain, DiceRoll} from './dice.js';
-import {weapons} from './weapons.js';
+import {weaponStatsFor, weapons} from './weapons.js';
 // import {weapons, weaponStatsFor} from './weapons.js';
 import {styles} from './styles.js';
 
@@ -34,6 +34,10 @@ export class MeleeWeapon extends LitElement {
   static get properties() {
     return {
       // attributes
+      type: {
+        type: String,
+        required: true,
+      },
       strength: {
         type: Number,
         required: true,
@@ -133,6 +137,8 @@ export class MeleeWeapon extends LitElement {
         type: Boolean,
         reflect: true,
       },
+      range: {state: true},
+      firingIntoMelee: {state: true},
       attackDieAdjustment: {state: true},
       damageDieAdjustment: {state: true},
     };
@@ -140,6 +146,7 @@ export class MeleeWeapon extends LitElement {
 
   constructor() {
     super();
+    this.type = null;
     this.strength = null;
     this.agility = null;
     this.weapon = null;
@@ -167,6 +174,8 @@ export class MeleeWeapon extends LitElement {
     this.opponentProne = false;
 
     this.attackDieAdjustment = 0;
+    this.firingIntoMelee = false;
+    this.range = 'short';
   }
 
   // if weapon is two handed, default wielding to two handed and disable changing
@@ -194,6 +203,7 @@ export class MeleeWeapon extends LitElement {
           <div class="text">
             <h1 part="title">Melee</h1>
             <h2 part="subtitle">${this.weapon}</h2>
+            ${this.weaponRangeSelector}
           </div>
           <div class="buttons">
             <div class="wielding-and-subdual" part="wielding-and-subdual">
@@ -258,59 +268,59 @@ export class MeleeWeapon extends LitElement {
             </div>
           </div>
         </header>
-        <!-- weapon range selector -->
       </div>
     `;
   }
 
-  // get weaponRangeSelector() {
-  // 	const weaponStats = weaponStatsFor(this.weapon);
-  //   return html`
-  //     <div class="range" part="range">
-  //       <ul>
-  //         <li>
-  //           <label>
-  //             <input
-  //               id="range-short"
-  //               type="radio"
-  //               name="range"
-  //               value="short"
-  //               .checked="${this.range === 'short'}"
-  //               @change="${this.handleRangeChange}"
-  //             />
-  //             Short (${weaponStats?.range.short})
-  //           </label>
-  //         </li>
-  //         <li>
-  //           <label>
-  //             <input
-  //               id="range-medium"
-  //               type="radio"
-  //               name="range"
-  //               value="medium"
-  //               .checked="${this.range === 'medium'}"
-  //               @change="${this.handleRangeChange}"
-  //             />
-  //             Medium (${weaponStats?.range.medium})
-  //           </label>
-  //         </li>
-  //         <li>
-  //           <label>
-  //             <input
-  //               id="range-long"
-  //               type="radio"
-  //               name="range"
-  //               value="long"
-  //               .checked="${this.range === 'long'}"
-  //               @change="${this.handleRangeChange}"
-  //             />
-  //             Long (${weaponStats?.range.long})
-  //           </label>
-  //         </li>
-  //       </ul>
-  //     </div>
-  //   `;
-  // }
+  get weaponRangeSelector() {
+    if (this.type !== 'missile') return html``;
+    const weaponStats = weaponStatsFor(this.weapon);
+    return html`
+      <div class="range" part="range">
+        <ul>
+          <li>
+            <label>
+              <input
+                id="range-short"
+                type="radio"
+                name="range"
+                value="short"
+                .checked="${this.range === 'short'}"
+                @change="${this.handleRangeChange}"
+              />
+              Short (${weaponStats?.range?.short})
+            </label>
+          </li>
+          <li>
+            <label>
+              <input
+                id="range-medium"
+                type="radio"
+                name="range"
+                value="medium"
+                .checked="${this.range === 'medium'}"
+                @change="${this.handleRangeChange}"
+              />
+              Medium (${weaponStats?.range?.medium})
+            </label>
+          </li>
+          <li>
+            <label>
+              <input
+                id="range-long"
+                type="radio"
+                name="range"
+                value="long"
+                .checked="${this.range === 'long'}"
+                @change="${this.handleRangeChange}"
+              />
+              Long (${weaponStats?.range?.long})
+            </label>
+          </li>
+        </ul>
+      </div>
+    `;
+  }
 
   handleSubdualDamageChange() {
     this.subdualDamage = !this.subdualDamage;
@@ -354,11 +364,11 @@ export class MeleeWeapon extends LitElement {
     dr.description = `A missile attack roll was made with a ${this.weapon?.toLowerCase()}`;
     dr.type = 'attack';
 
-    dr.weapon.type = 'melee';
+    dr.weapon.type = this.type;
     dr.weapon.name = this.weapon;
     dr.weapon.wielding = this.wielding;
     dr.weapon.subdualDamage = this.subdualDamage;
-    // dr.weapon.range = this.range;
+    dr.weapon.range = this.range;
 
     const [qty, die] = this._attackDie.split('d');
     dr.roll.qty = Number(qty || 1);
@@ -368,7 +378,7 @@ export class MeleeWeapon extends LitElement {
 
     dr.conditions.attacker.charging = this.attackerCharging;
     dr.conditions.attacker.entangled = this.attackerCharging;
-    // dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
+    dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
     dr.conditions.attacker.invisible = this.attackerInvisible;
     dr.conditions.attacker.mounted = this.attackerMounted;
     dr.conditions.attacker.onHigherGround = this.attackerOnHigherGround;
@@ -387,10 +397,11 @@ export class MeleeWeapon extends LitElement {
     dr.name = 'Missile Damage';
     dr.description = `A missile damage roll was made with a ${this.weapon?.toLowerCase()}`;
 
-    dr.weapon.type = 'melee';
+    dr.weapon.type = this.type;
     dr.weapon.name = this.weapon;
     dr.weapon.wielding = this.wielding;
     dr.weapon.subdualDamage = this.subdualDamage;
+    dr.weapon.range = this.range;
 
     const [qty, die] = this._damageDie.split('d');
     dr.roll.qty = Number(qty || 1);
@@ -399,7 +410,7 @@ export class MeleeWeapon extends LitElement {
 
     dr.conditions.attacker.charging = this.attackerCharging;
     dr.conditions.attacker.entangled = this.attackerCharging;
-    // dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
+    dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
     dr.conditions.attacker.invisible = this.attackerInvisible;
     dr.conditions.attacker.mounted = this.attackerMounted;
     dr.conditions.attacker.onHigherGround = this.attackerOnHigherGround;
@@ -443,6 +454,7 @@ export class MeleeWeapon extends LitElement {
     if (this.attackerUntrained) {
       die = this.decrementDiceChain(die);
     }
+
     if (this.opponentEntangled) {
       die = this.incrementDiceChain(die);
     }
@@ -450,47 +462,48 @@ export class MeleeWeapon extends LitElement {
       die = this.incrementDiceChain(die);
     }
 
-    // dual weapon fighting
-    if (this.wielding === wielding.DUAL_WIELD_MAIN_HAND) {
-      if (this.agility <= 8) {
-        die = this.decrementDiceChain(die, 3);
+    if (this.type === 'melee') {
+      // dual weapon fighting
+      if (this.wielding === wielding.DUAL_WIELD_MAIN_HAND) {
+        if (this.agility <= 8) {
+          die = this.decrementDiceChain(die, 3);
+        }
+        if (this.agility >= 9 && this.agility <= 11) {
+          die = this.decrementDiceChain(die, 2);
+        }
+        if (this.agility >= 12 && this.agility <= 15) {
+          die = this.decrementDiceChain(die);
+        }
+        if (this.agility >= 16 && this.agility <= 17) {
+          die = this.decrementDiceChain(die);
+        }
       }
-      if (this.agility >= 9 && this.agility <= 11) {
-        die = this.decrementDiceChain(die, 2);
-      }
-      if (this.agility >= 12 && this.agility <= 15) {
-        die = this.decrementDiceChain(die);
-      }
-      if (this.agility >= 16 && this.agility <= 17) {
-        die = this.decrementDiceChain(die);
+
+      if (this.wielding === wielding.DUAL_WIELD_OFF_HAND) {
+        if (this.agility <= 8) {
+          die = this.decrementDiceChain(die, 4);
+        }
+        if (this.agility >= 9 && this.agility <= 11) {
+          die = this.decrementDiceChain(die, 3);
+        }
+        if (this.agility >= 12 && this.agility <= 15) {
+          die = this.decrementDiceChain(die, 2);
+        }
+        if (this.agility >= 16 && this.agility <= 17) {
+          die = this.decrementDiceChain(die);
+        }
+        if (this.agility >= 18) {
+          die = this.decrementDiceChain(die);
+        }
       }
     }
 
-    if (this.wielding === wielding.DUAL_WIELD_OFF_HAND) {
-      if (this.agility <= 8) {
-        die = this.decrementDiceChain(die, 4);
-      }
-      if (this.agility >= 9 && this.agility <= 11) {
-        die = this.decrementDiceChain(die, 3);
-      }
-      if (this.agility >= 12 && this.agility <= 15) {
-        die = this.decrementDiceChain(die, 2);
-      }
-      if (this.agility >= 16 && this.agility <= 17) {
-        die = this.decrementDiceChain(die);
-      }
-      if (this.agility >= 18) {
+    if (this.type === 'missile') {
+      // if the range is long, it's minus 1 die
+      if (this.range === 'long') {
         die = this.decrementDiceChain(die);
       }
     }
-
-    // if the range is long, it's minus 1 die
-    // if (this.range === 'long') {
-    //   // guard against going out of bounds in the dice chain
-    //   if (diceChain[diceChain.indexOf(die) - 1]) {
-    //     die = diceChain[diceChain.indexOf(die) - 1];
-    //   }
-    // }
 
     // if the plus/minus buttons have been used to adjust the dice chain manually
     // iterate until all increments or decrements have been used to move the dice chain up or down
@@ -521,11 +534,20 @@ export class MeleeWeapon extends LitElement {
     if (this.attackModifierAdjustment)
       modifier += this.attackModifierAdjustment;
 
-    if (this.attackerInvisible) modifier += 2;
-    if (this.attackerOnHigherGround) modifier += 1;
     if (this.opponentBehindCover) modifier -= 2;
     if (this.opponentBlinded) modifier += 2;
-    if (this.opponentProne) modifier += 2;
+
+    if (this.type === 'melee') {
+      if (this.attackerInvisible) modifier += 2;
+      if (this.attackerOnHigherGround) modifier += 1;
+      if (this.opponentProne) modifier += 2;
+    }
+
+    if (this.type === 'missile') {
+      if (this.range === 'medium') modifier -= 2;
+      if (this.firingIntoMelee) modifier -= 1;
+      if (this.opponentProne) modifier -= 2;
+    }
 
     if (this.attackModifierOverride) modifier = this.attackModifierOverride;
     return modifier;

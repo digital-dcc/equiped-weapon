@@ -65,6 +65,7 @@ export const styles = css`
     justify-content: center;
 		min-width: fit-content;
 		text-align: left;
+		gap: 5px;
   }
   h1 {
     margin: 0;
