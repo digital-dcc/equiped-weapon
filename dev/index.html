@@ -1,24 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;hit-points> Demo</title>
+    <title>&lt;melee-weapon> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../hit-points.js"></script>
+    <script type="module" src="../melee-weapon.js"></script>
     <style>
       .wrapper {
-				display: flex;
-				gap: 10px;
-			}
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
     </style>
   </head>
   <body>
     <div class="wrapper">
-			<hit-points max="4"></hit-points>
-			<hit-points max="15" current="7"></hit-points>
-			<hit-points max="45" current="21"></hit-points>
-		</div>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Longsword"
+      ></melee-weapon>
+      <melee-weapon strength="15" agility="13" weapon="Mace"></melee-weapon>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Longsword"
+        offhand
+        attack-die="d16"
+        damage-die="d5"
+        attack-modifier-adjustment="+1"
+        damage-modifier-adjustment="+2"
+      ></melee-weapon>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Longsword"
+        offhand
+        attack-die="d16"
+        damage-die="d5"
+        attack-modifier-adjustment="+1"
+        damage-modifier-adjustment="+2"
+        attack-modifier-override="+3"
+        damage-modifier-override="+3"
+      ></melee-weapon>
+      <h2>Agility=3 Dual Wielding</h2>
+      <melee-weapon strength="12" agility="12" weapon="Dagger"></melee-weapon>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Blackjack"
+      ></melee-weapon>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Two-handed sword"
+      ></melee-weapon>
+      <melee-weapon
+        strength="12"
+        agility="12"
+        weapon="Mace"
+        subdual-damage
+      ></melee-weapon>
+    </div>
   </body>
 </html>

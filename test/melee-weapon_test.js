@@ -5,18 +5,18 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import {HitPoints} from '../hit-points.js';
+import {HitPoints} from '../melee-weapon.js';
 import {fixture, assert} from '@open-wc/testing';
 import {html} from 'lit/static-html.js';
 
-suite('hit-points', () => {
+suite('melee-weapon', () => {
   test('is defined', () => {
-    const el = document.createElement('hit-points');
+    const el = document.createElement('melee-weapon');
     assert.instanceOf(el, HitPoints);
   });
 
   test('renders with a set max', async () => {
-    const el = await fixture(html`<hit-points max="9"></hit-points>`);
+    const el = await fixture(html`<melee-weapon max="9"></melee-weapon>`);
     assert.shadowDom.equal(
       el,
       `
@@ -31,7 +31,7 @@ suite('hit-points', () => {
 
   test('renders with a set max and current', async () => {
     const el = await fixture(
-      html`<hit-points max="11" current="7"></hit-points>`
+      html`<melee-weapon max="11" current="7"></melee-weapon>`
     );
     assert.shadowDom.equal(
       el,
@@ -47,7 +47,7 @@ suite('hit-points', () => {
 
   test('handles a click', async () => {
     const el = await fixture(
-      html`<hit-points max="11" current="7"></hit-points>`
+      html`<melee-weapon max="11" current="7"></melee-weapon>`
     );
     const button = el.shadowRoot.querySelector('button.decrement-button');
     button.click();
@@ -65,7 +65,7 @@ suite('hit-points', () => {
   });
 
   test('styling applied', async () => {
-    const el = await fixture(html`<hit-points max="7"></hit-points>`);
+    const el = await fixture(html`<melee-weapon max="7"></melee-weapon>`);
     await el.updateComplete;
     assert.equal(getComputedStyle(el).paddingTop, '0px');
   });

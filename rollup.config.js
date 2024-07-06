@@ -5,14 +5,14 @@
  */
 
 import summary from 'rollup-plugin-summary';
-import {terser} from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: 'hit-points.js',
+  input: 'melee-weapon.js',
   output: {
-    file: 'hit-points.bundled.js',
+    file: 'melee-weapon.bundled.js',
     format: 'esm',
   },
   onwarn(warning) {
@@ -28,6 +28,7 @@ export default {
      * For bundling and minification, check the README.md file.
      */
     terser({
+      // @ts-ignore
       ecma: 2021,
       module: true,
       warnings: true,

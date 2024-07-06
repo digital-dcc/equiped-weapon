@@ -1,20 +1,20 @@
 ---
 layout: example.11ty.cjs
-title: <hit-points> ⌲ Examples ⌲ Basic
+title: <melee-weapon> ⌲ Examples ⌲ Basic
 tags: example
 name: Basic
 description: A basic example
 ---
 
 <style>
-  hit-points p {
+  melee-weapon p {
     border: solid 1px blue;
     padding: 8px;
   }
 </style>
-<hit-points>
+<melee-weapon>
   <p>This is child content</p>
-</hit-points>
+</melee-weapon>
 
 <h3>CSS</h3>
 
@@ -28,7 +28,7 @@ p {
 <h3>HTML</h3>
 
 ```html
-<hit-points>
+<melee-weapon>
   <p>This is child content</p>
-</hit-points>
+</melee-weapon>
 ```

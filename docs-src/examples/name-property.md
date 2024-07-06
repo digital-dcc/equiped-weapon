@@ -1,15 +1,15 @@
 ---
 layout: example.11ty.cjs
-title: <hit-points> ⌲ Examples ⌲ Name Property
+title: <melee-weapon> ⌲ Examples ⌲ Name Property
 tags: example
 name: Name Property
 description: Setting the name property
 ---
 
-<hit-points name="Earth"></hit-points>
+<melee-weapon name="Earth"></melee-weapon>
 
 <h3>HTML</h3>
 
 ```html
-<hit-points name="Earth"></hit-points>
+<melee-weapon name="Earth"></melee-weapon>
 ```
