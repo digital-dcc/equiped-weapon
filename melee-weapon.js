@@ -143,9 +143,9 @@ export class MeleeWeapon extends LitElement {
     this.strength = null;
     this.agility = null;
     this.weapon = null;
+    this.attackDie = 'd20';
     this.wielding = wielding.ONE_HANDED;
     this.subdualDamage = undefined;
-    this.attackDie = 'd20';
     this.damageDie = null;
     this.attackModifierAdjustment = 0;
     this.attackModifierOverride = null;
@@ -167,7 +167,6 @@ export class MeleeWeapon extends LitElement {
     this.opponentProne = false;
 
     this.attackDieAdjustment = 0;
-    this.damageDieAdjustment = 0;
   }
 
   // if weapon is two handed, default wielding to two handed and disable changing
@@ -256,20 +255,6 @@ export class MeleeWeapon extends LitElement {
                 <h2 part="subtitle">Damage</h2>
                 ${this.damageDisplay}
               </button>
-							<div class="dice-chain-adjustment-buttons">
-                <button
-                  id="increment-dice-chain"
-                  @click="${this.adjustDamageDieUp}"
-                >
-                  +
-                </button>
-                <button
-                  id="decrement-dice-chain"
-                  @click="${this.adjustDamageDieDown}"
-                >
-                  -
-                </button>
-              </div>
             </div>
           </div>
         </header>
@@ -361,16 +346,6 @@ export class MeleeWeapon extends LitElement {
   adjustAttackDieDown() {
     if (this._attackDie === 'd3') return;
     this.attackDieAdjustment--;
-  }
-	
-  adjustDamageDieUp() {
-    if (this._damageDie === 'd30') return;
-    this.damageDieAdjustment++;
-  }
-
-  adjustDamageDieDown() {
-    if (this._damageDie === 'd3') return;
-    this.damageDieAdjustment--;
   }
 
   _attackRoll() {
@@ -565,45 +540,19 @@ export class MeleeWeapon extends LitElement {
   get _damageDie() {
     const weaponStats = weapons.get(this.weapon);
 
-    let damageDie = null;
+    let die = null;
 
     // set the die to the weapon's normal damage die
-    if (weaponStats?.damage) damageDie = weaponStats.damage;
+    if (weaponStats?.damage) die = weaponStats.damage;
 
     // if the character is performing a sneak attack and has a weapon that uses a higher die for sneak attacks, use that
     if (this.attackerSneakAttacking && weaponStats?.sneakDamage)
-      damageDie = weaponStats?.sneakDamage;
+      die = weaponStats?.sneakDamage;
 
     // allow override via attributes
-    if (this.damageDie) damageDie = this.damageDie;
+    if (this.damageDie) die = this.damageDie;
 
-		let [qty, die] = damageDie.split('d');
-    die = `d${die}`;
-    qty = qty || '1';
-
-		// if the plus/minus buttons have been used to adjust the dice chain manually
-    // iterate until all increments or decrements have been used to move the dice chain up or down
-    let i = this.damageDieAdjustment;
-    while (i !== 0) {
-      if (i < 0) {
-        if (die === 'd3') {
-          i = 0;
-          continue;
-        }
-        die = this.decrementDiceChain(die);
-        i++;
-      } else {
-        if (die === 'd30') {
-          i = 0;
-          continue;
-        }
-        die = this.incrementDiceChain(die);
-        i--;
-      }
-    }
-
-
-    return `${qty}${die}`;
+    return die;
   }
 
   get _damageModifier() {
