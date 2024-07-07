@@ -131,13 +131,11 @@ export class MeleeWeapon extends LitElement {
         type: String,
         reflect: true,
       },
-      subdualDamage: {
-        attribute: 'subdual-damage',
+      firingIntoMelee: {
         type: Boolean,
-        reflect: true,
+        attribute: 'firing-into-melee',
       },
       range: {state: true},
-      firingIntoMelee: {state: true},
       attackDieAdjustment: {state: true},
       damageDieAdjustment: {state: true},
     };
@@ -151,7 +149,7 @@ export class MeleeWeapon extends LitElement {
     this.weapon = null;
     this.attackDie = 'd20';
     this.wielding = wielding.ONE_HANDED;
-    this.subdualDamage = undefined;
+    this.subdualDamage = null;
     this.damageDie = null;
     this.attackModifierAdjustment = 0;
     this.attackModifierOverride = null;
@@ -195,12 +193,7 @@ export class MeleeWeapon extends LitElement {
     }
 
     const weaponIsTwoHanded = weapons.get(this.weapon || 'Dagger')?.twoHanded;
-    let isSubdual = !!weapons.get(this.weapon || 'Dagger')?.subdualDamage;
-    if (this.subdualDamage === false) {
-      isSubdual = false;
-    } else if (this.subdualDamage === true) {
-      isSubdual = true;
-    }
+    const isSubdual = !!weapons.get(this.weapon || 'Dagger')?.subdualDamage;
 
     return html`
       <div class="wrapper" part="wrapper">
@@ -240,13 +233,7 @@ export class MeleeWeapon extends LitElement {
                 </option>
               </select>
               <label>
-                <input
-                  type="checkbox"
-                  name="subdual-damage"
-                  .checked="${isSubdual}"
-                  @change="${this.handleSubdualDamageChange}"
-                />
-                subdual
+                ${isSubdual ? html`<em>subdual only</em>` : html``}
               </label>
             </div>
             <div class="attack" part="attack">
