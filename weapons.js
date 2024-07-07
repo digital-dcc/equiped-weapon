@@ -3,17 +3,19 @@ export const weapons = new Map([
     'Battleaxe',
     {
       damage: '1d10',
-			twoHanded: true,
+      twoHanded: true,
       cost: 7,
+      melee: true,
     },
   ],
   [
     'Blackjack',
     {
       damage: '1d3',
-			sneakDamage: '2d6',
+      sneakDamage: '2d6',
       cost: 3,
-			subdualDamage: true,
+      subdualDamage: true,
+      melee: true,
     },
   ],
   [
@@ -21,14 +23,7 @@ export const weapons = new Map([
     {
       damage: '1d4',
       cost: 3,
-    },
-  ],
-  [
-    'Dagger',
-    {
-      damage: '1d4',
-      sneakDamage: '1d10',
-      cost: 3,
+      melee: true,
     },
   ],
   [
@@ -36,6 +31,7 @@ export const weapons = new Map([
     {
       damage: '1d6',
       cost: 6,
+      melee: true,
     },
   ],
   [
@@ -44,20 +40,7 @@ export const weapons = new Map([
       damage: '1',
       sneakDamage: '3d4',
       cost: 2,
-    },
-  ],
-  [
-    'Handaxe',
-    {
-      damage: '1d6',
-      cost: 4,
-    },
-  ],
-  [
-    'Javelin',
-    {
-      damage: '1d6',
-      cost: 1,
+      melee: true,
     },
   ],
   [
@@ -65,8 +48,9 @@ export const weapons = new Map([
     {
       damage: '1d12',
       cost: 25,
-			onlyUsableWhileMounted: true,
-			doubleDamageMountedCharging: true,
+      onlyUsableWhileMounted: true,
+      doubleDamageMountedCharging: true,
+      melee: true,
     },
   ],
   [
@@ -74,6 +58,7 @@ export const weapons = new Map([
     {
       damage: '1d8',
       cost: 10,
+      melee: true,
     },
   ],
   [
@@ -81,6 +66,7 @@ export const weapons = new Map([
     {
       damage: '1d6',
       cost: 5,
+      melee: true,
     },
   ],
   [
@@ -88,7 +74,8 @@ export const weapons = new Map([
     {
       damage: '1d10',
       cost: 7,
-			twoHanded: true,
+      twoHanded: true,
+      melee: true,
     },
   ],
   [
@@ -96,6 +83,7 @@ export const weapons = new Map([
     {
       damage: '1d6',
       cost: 7,
+      melee: true,
     },
   ],
   [
@@ -103,7 +91,8 @@ export const weapons = new Map([
     {
       damage: '1d8',
       cost: 3,
-			doubleDamageMountedCharging: true,
+      doubleDamageMountedCharging: true,
+      melee: true,
     },
   ],
   [
@@ -111,6 +100,7 @@ export const weapons = new Map([
     {
       damage: '1d4',
       cost: 0.5,
+      melee: true,
     },
   ],
   [
@@ -118,7 +108,8 @@ export const weapons = new Map([
     {
       damage: '1d10',
       cost: 15,
-			twoHanded: true,
+      twoHanded: true,
+      melee: true,
     },
   ],
   [
@@ -126,15 +117,18 @@ export const weapons = new Map([
     {
       damage: '1d8',
       cost: 5,
+      melee: true,
     },
   ],
-	[
+  [
     'Blowgun',
     {
       range: {short: 20, medium: 40, long: 60},
       damage: '1d3',
       sneakDamage: '1d5',
       cost: 6,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -144,6 +138,8 @@ export const weapons = new Map([
       damage: '1d6',
       twoHanded: true,
       cost: 30,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -155,6 +151,8 @@ export const weapons = new Map([
       thrown: true,
       cost: 3,
       addStrengthToDamageAtShortRange: true,
+      melee: true,
+      missile: true,
     },
   ],
   [
@@ -165,6 +163,8 @@ export const weapons = new Map([
       thrown: true,
       cost: 0.5,
       addStrengthToDamageAtShortRange: true,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -175,6 +175,8 @@ export const weapons = new Map([
       thrown: true,
       cost: 4,
       addStrengthToDamageAtShortRange: true,
+      melee: true,
+      missile: true,
     },
   ],
   [
@@ -185,6 +187,8 @@ export const weapons = new Map([
       thrown: true,
       cost: 1,
       addStrengthToDamageAtShortRange: true,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -194,6 +198,8 @@ export const weapons = new Map([
       damage: '1d6',
       twoHanded: true,
       cost: 40,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -203,6 +209,8 @@ export const weapons = new Map([
       damage: '1d6',
       twoHanded: true,
       cost: 25,
+      melee: false,
+      missile: true,
     },
   ],
   [
@@ -212,13 +220,15 @@ export const weapons = new Map([
       damage: '1d3',
       cost: 2,
       addStrengthToDamageAtShortRange: true,
+      melee: false,
+      missile: true,
     },
   ],
 ]);
 
 export const weaponStatsFor = (weaponType) => {
-	const weapon = weapons.get(weaponType);
-	if (weapon) {
-		return weapon;
-	}
-}
+  const weapon = weapons.get(weaponType);
+  if (weapon) {
+    return weapon;
+  }
+};

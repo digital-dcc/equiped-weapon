@@ -34,10 +34,6 @@ export class MeleeWeapon extends LitElement {
   static get properties() {
     return {
       // attributes
-      type: {
-        type: String,
-        required: true,
-      },
       strength: {
         type: Number,
         required: true,
@@ -45,6 +41,9 @@ export class MeleeWeapon extends LitElement {
       agility: {
         type: Number,
         required: true,
+      },
+      type: {
+        type: String,
       },
       weapon: {
         type: String,
@@ -175,7 +174,7 @@ export class MeleeWeapon extends LitElement {
 
     this.attackDieAdjustment = 0;
     this.firingIntoMelee = false;
-    this.range = 'short';
+    this.range = null;
   }
 
   // if weapon is two handed, default wielding to two handed and disable changing
@@ -189,6 +188,12 @@ export class MeleeWeapon extends LitElement {
   // 		only fumbles when both results come up 1s
 
   render() {
+    if (!this.type) {
+      this.type = weapons.get(this.weapon || 'Dagger')?.melee
+        ? 'melee'
+        : 'missile';
+    }
+
     const weaponIsTwoHanded = weapons.get(this.weapon || 'Dagger')?.twoHanded;
     let isSubdual = !!weapons.get(this.weapon || 'Dagger')?.subdualDamage;
     if (this.subdualDamage === false) {
@@ -201,26 +206,36 @@ export class MeleeWeapon extends LitElement {
       <div class="wrapper" part="wrapper">
         <header part="header">
           <div class="text">
-            <h1 part="title">Melee</h1>
+            <h1 part="title">${this.type === 'melee' ? 'Melee' : 'Missile'}</h1>
             <h2 part="subtitle">${this.weapon}</h2>
             ${this.weaponRangeSelector}
           </div>
           <div class="buttons">
             <div class="wielding-and-subdual" part="wielding-and-subdual">
               <select @change="${this.handleWieldingChange}">
-                <option value="${wielding.ONE_HANDED}">
+                <option
+                  value="${wielding.ONE_HANDED}"
+                  ?selected="${this.wielding === wielding.ONE_HANDED}"
+                >
                   ${wieldingDisplayText[wielding.ONE_HANDED]}
                 </option>
                 <option
                   value="${wielding.TWO_HANDED}"
-                  ?selected="${weaponIsTwoHanded}"
+                  ?selected="${this.wielding === wielding.TWO_HANDED ||
+                  weaponIsTwoHanded}"
                 >
                   ${wieldingDisplayText[wielding.TWO_HANDED]}
                 </option>
-                <option value="${wielding.DUAL_WIELD_MAIN_HAND}">
+                <option
+                  value="${wielding.DUAL_WIELD_MAIN_HAND}"
+                  ?selected="${this.wielding === wielding.DUAL_WIELD_MAIN_HAND}"
+                >
                   ${wieldingDisplayText[wielding.DUAL_WIELD_MAIN_HAND]}
                 </option>
-                <option value="${wielding.DUAL_WIELD_OFF_HAND}">
+                <option
+                  value="${wielding.DUAL_WIELD_OFF_HAND}"
+                  ?selected="${this.wielding === wielding.DUAL_WIELD_OFF_HAND}"
+                >
                   ${wieldingDisplayText[wielding.DUAL_WIELD_OFF_HAND]}
                 </option>
               </select>
@@ -273,11 +288,35 @@ export class MeleeWeapon extends LitElement {
   }
 
   get weaponRangeSelector() {
-    if (this.type !== 'missile') return html``;
     const weaponStats = weaponStatsFor(this.weapon);
+    if (!weaponStats?.missile) return html``;
+
+    // initialise range
+    if (!this.range) {
+      this.range = 'short';
+      if (weaponStats.melee && weaponStats.missile) this.range = 'melee';
+    }
+
     return html`
       <div class="range" part="range">
         <ul>
+          ${weaponStats.melee
+            ? html`
+                <li>
+                  <label>
+                    <input
+                      id="range-melee"
+                      type="radio"
+                      name="range"
+                      value="melee"
+                      .checked="${this.range === 'melee'}"
+                      @change="${this.handleRangeChange}"
+                    />
+                    Melee
+                  </label>
+                </li>
+              `
+            : html``}
           <li>
             <label>
               <input
@@ -345,6 +384,11 @@ export class MeleeWeapon extends LitElement {
   }
 
   handleRangeChange(event) {
+    if (event.target.value === 'melee') {
+      this.type = 'melee';
+    } else {
+      this.type = 'missile';
+    }
     this.range = event.target.value;
   }
 
@@ -364,7 +408,7 @@ export class MeleeWeapon extends LitElement {
     dr.description = `A missile attack roll was made with a ${this.weapon?.toLowerCase()}`;
     dr.type = 'attack';
 
-    dr.weapon.type = this.type;
+    dr.weapon.type = /** @type {string} */ (this.type);
     dr.weapon.name = this.weapon;
     dr.weapon.wielding = this.wielding;
     dr.weapon.subdualDamage = this.subdualDamage;
@@ -397,7 +441,7 @@ export class MeleeWeapon extends LitElement {
     dr.name = 'Missile Damage';
     dr.description = `A missile damage roll was made with a ${this.weapon?.toLowerCase()}`;
 
-    dr.weapon.type = this.type;
+    dr.weapon.type = /** @type {string} */ (this.type);
     dr.weapon.name = this.weapon;
     dr.weapon.wielding = this.wielding;
     dr.weapon.subdualDamage = this.subdualDamage;
@@ -530,24 +574,27 @@ export class MeleeWeapon extends LitElement {
   }
 
   get _attackModifier() {
-    let modifier = modifierFor(this.strength);
-    if (this.attackModifierAdjustment)
-      modifier += this.attackModifierAdjustment;
-
-    if (this.opponentBehindCover) modifier -= 2;
-    if (this.opponentBlinded) modifier += 2;
+    let modifier = 0;
 
     if (this.type === 'melee') {
+      modifier = modifierFor(this.strength);
       if (this.attackerInvisible) modifier += 2;
       if (this.attackerOnHigherGround) modifier += 1;
       if (this.opponentProne) modifier += 2;
     }
 
     if (this.type === 'missile') {
+      modifier = modifierFor(this.agility);
       if (this.range === 'medium') modifier -= 2;
       if (this.firingIntoMelee) modifier -= 1;
       if (this.opponentProne) modifier -= 2;
     }
+
+    if (this.opponentBehindCover) modifier -= 2;
+    if (this.opponentBlinded) modifier += 2;
+
+    if (this.attackModifierAdjustment)
+      modifier += this.attackModifierAdjustment;
 
     if (this.attackModifierOverride) modifier = this.attackModifierOverride;
     return modifier;
@@ -579,7 +626,15 @@ export class MeleeWeapon extends LitElement {
 
   get _damageModifier() {
     // start with zero modifier
-    let modifier = modifierFor(this.strength);
+    let modifier = 0;
+
+    // if the weapon is a melee weapon or the weapon is a missle weapon being shot at short range...
+    if (
+      this.type === 'melee' ||
+      (this.type === 'missile' && this.range === 'short')
+    ) {
+      modifier = modifierFor(this.strength);
+    }
 
     // apply any attribute based adjustment
     if (this.damageModifierAdjustment)
