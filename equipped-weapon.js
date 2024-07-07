@@ -26,7 +26,7 @@ const wieldingDisplayText = {
   'dual-wield-off-hand': 'Dual Wield - Off Hand',
 };
 
-export class WeaponItem extends LitElement {
+export class EquippedWeapon extends LitElement {
   static get styles() {
     return [styles];
   }
@@ -638,4 +638,4 @@ export class WeaponItem extends LitElement {
   }
 }
 
-window.customElements.define('weapon-item', WeaponItem);
+window.customElements.define('equipped-weapon', EquippedWeapon);

@@ -10,9 +10,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: 'weapon-item.js',
+  input: 'equipped-weapon.js',
   output: {
-    file: 'weapon-item.bundled.js',
+    file: 'equipped-weapon.bundled.js',
     format: 'esm',
   },
   onwarn(warning) {

@@ -3,10 +3,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;weapon-item> Demo</title>
+    <title>&lt;equipped-weapon> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../weapon-item.js"></script>
+    <script type="module" src="../equipped-weapon.js"></script>
     <style>
       .wrapper {
         display: flex;
@@ -30,32 +30,32 @@
   <body>
     <div class="wrapper">
       <h3>Main hand / Off hand</h3>
-      <weapon-item
+      <equipped-weapon
         id="my-cool-longsword"
         strength="18"
         agility="18"
         weapon="Longsword"
         wielding="dual-wield-main-hand"
-      ></weapon-item>
+      ></equipped-weapon>
 
-      <weapon-item
+      <equipped-weapon
         strength="18"
         agility="18"
         weapon="Dagger"
         wielding="dual-wield-off-hand"
-      ></weapon-item>
+      ></equipped-weapon>
 
       <h3>melee 12/12 Longsword</h3>
-      <weapon-item
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Longsword"
-      ></weapon-item>
+      ></equipped-weapon>
 
       <h3>melee 15/13 Mace</h3>
-      <weapon-item strength="15" agility="13" weapon="Mace"></weapon-item>
+      <equipped-weapon strength="15" agility="13" weapon="Mace"></equipped-weapon>
 
-      <weapon-item
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Longsword"
@@ -64,10 +64,10 @@
         damage-die="d5"
         attack-modifier-adjustment="+1"
         damage-modifier-adjustment="+2"
-      ></weapon-item>
+      ></equipped-weapon>
 
       <h3>melee 12/12 Longsword d16/d5 am +1, dma +2, amo=+3, dmo=+3</h3>
-      <weapon-item
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Longsword"
@@ -78,29 +78,29 @@
         damage-modifier-adjustment="+2"
         attack-modifier-override="+3"
         damage-modifier-override="+3"
-      ></weapon-item>
+      ></equipped-weapon>
 
       <h3>Melee vs Missile dagger</h3>
-      <weapon-item strength="13" agility="8" weapon="Dagger"></weapon-item>
-      <weapon-item strength="13" agility="8" weapon="Dagger"></weapon-item>
-      <weapon-item
+      <equipped-weapon strength="13" agility="8" weapon="Dagger"></equipped-weapon>
+      <equipped-weapon strength="13" agility="8" weapon="Dagger"></equipped-weapon>
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Blackjack"
-      ></weapon-item>
-      <weapon-item
+      ></equipped-weapon>
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Two-handed sword"
-      ></weapon-item>
-      <weapon-item
+      ></equipped-weapon>
+      <equipped-weapon
         strength="12"
         agility="12"
         weapon="Mace"
         subdual-damage
-      ></weapon-item>
-      <weapon-item strength="12" agility="12" weapon="Longbow"></weapon-item>
-      <weapon-item strength="12" agility="12" weapon="Longbow" firing-into-melee></weapon-item>
+      ></equipped-weapon>
+      <equipped-weapon strength="12" agility="12" weapon="Longbow"></equipped-weapon>
+      <equipped-weapon strength="12" agility="12" weapon="Longbow" firing-into-melee></equipped-weapon>
     </div>
   </body>
 </html>

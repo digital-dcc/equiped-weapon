@@ -1,27 +1,27 @@
 ---
 layout: page.11ty.cjs
-title: <weapon-item> ⌲ Home
+title: <equipped-weapon> ⌲ Home
 ---
 
-# &lt;weapon-item>
+# &lt;equipped-weapon>
 
-`<weapon-item>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
+`<equipped-weapon>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
 
 ## As easy as HTML
 
 <section class="columns">
   <div>
 
-`<weapon-item>` is just an HTML element. You can it anywhere you can use HTML!
+`<equipped-weapon>` is just an HTML element. You can it anywhere you can use HTML!
 
 ```html
-<weapon-item></weapon-item>
+<equipped-weapon></equipped-weapon>
 ```
 
   </div>
   <div>
 
-<weapon-item></weapon-item>
+<equipped-weapon></equipped-weapon>
 
   </div>
 </section>
@@ -31,16 +31,16 @@ title: <weapon-item> ⌲ Home
 <section class="columns">
   <div>
 
-`<weapon-item>` can be configured with attributed in plain HTML.
+`<equipped-weapon>` can be configured with attributed in plain HTML.
 
 ```html
-<weapon-item name="HTML"></weapon-item>
+<equipped-weapon name="HTML"></equipped-weapon>
 ```
 
   </div>
   <div>
 
-<weapon-item name="HTML"></weapon-item>
+<equipped-weapon name="HTML"></equipped-weapon>
 
   </div>
 </section>
@@ -50,7 +50,7 @@ title: <weapon-item> ⌲ Home
 <section class="columns">
   <div>
 
-`<weapon-item>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
+`<equipped-weapon>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
 
 ```js
 import {html, render} from 'lit-html';
@@ -59,8 +59,8 @@ const name = 'lit-html';
 
 render(
   html`
-    <h2>This is a &lt;weapon-item&gt;</h2>
-    <weapon-item .name=${name}></weapon-item>
+    <h2>This is a &lt;equipped-weapon&gt;</h2>
+    <equipped-weapon .name=${name}></equipped-weapon>
   `,
   document.body
 );
@@ -69,8 +69,8 @@ render(
   </div>
   <div>
 
-<h2>This is a &lt;weapon-item&gt;</h2>
-<weapon-item name="lit-html"></weapon-item>
+<h2>This is a &lt;equipped-weapon&gt;</h2>
+<equipped-weapon name="lit-html"></equipped-weapon>
 
   </div>
 </section>

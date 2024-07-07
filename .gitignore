@@ -1,4 +1,4 @@
 /node_modules/
 custom-elements.json
 # only generated for size check
-weapon-item.bundled.js
+equipped-weapon.bundled.js

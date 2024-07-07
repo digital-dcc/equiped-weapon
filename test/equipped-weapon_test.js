@@ -1,21 +1,21 @@
 // @ts-nocheck
-import {WeaponItem} from '../weapon-item.js';
+import {EquippedWeapon} from '../equipped-weapon.js';
 import {fixture, assert} from '@open-wc/testing';
 import {html} from 'lit/static-html.js';
 
-suite('weapon-item', () => {
+suite('equipped-weapon', () => {
   test('is defined', () => {
-    const el = document.createElement('weapon-item');
-    assert.instanceOf(el, WeaponItem);
+    const el = document.createElement('equipped-weapon');
+    assert.instanceOf(el, EquippedWeapon);
   });
 
   test('str=3, agi=18, weapon=Longsword', async () => {
     const el = await fixture(
-      html`<weapon-item
+      html`<equipped-weapon
         strength="3"
         agility="18"
         weapon="Longsword"
-      ></weapon-item>`
+      ></equipped-weapon>`
     );
     const attackButton = el.shadowRoot.querySelector(
       '.attack .attack-display-button'
@@ -30,7 +30,7 @@ suite('weapon-item', () => {
 
   test('str=18, agi=3, weapon=Mace', async () => {
     const el = await fixture(
-      html`<weapon-item strength="18" agility="3" weapon="Mace"></weapon-item>`
+      html`<equipped-weapon strength="18" agility="3" weapon="Mace"></equipped-weapon>`
     );
     const attackButton = el.shadowRoot.querySelector(
       '.attack .attack-display-button'
@@ -45,11 +45,11 @@ suite('weapon-item', () => {
 
   test('str=18, agi=3, weapon=Longbow', async () => {
     const el = await fixture(
-      html`<weapon-item
+      html`<equipped-weapon
         strength="18"
         agility="3"
         weapon="Longbow"
-      ></weapon-item>`
+      ></equipped-weapon>`
     );
     const attackButton = el.shadowRoot.querySelector(
       '.attack .attack-display-button'
@@ -64,11 +64,11 @@ suite('weapon-item', () => {
 
   test('str=3, agi=18, weapon=Shortbow', async () => {
     const el = await fixture(
-      html`<weapon-item
+      html`<equipped-weapon
         strength="3"
         agility="18"
         weapon="Shortbow"
-      ></weapon-item>`
+      ></equipped-weapon>`
     );
     const attackButton = el.shadowRoot.querySelector(
       '.attack .attack-display-button'
@@ -84,11 +84,11 @@ suite('weapon-item', () => {
   test('handles a click', async () => {
     let diceRoll;
     const el = await fixture(
-      html`<weapon-item
+      html`<equipped-weapon
         strength="3"
         agility="18"
         weapon="Dagger"
-      ></weapon-item>`
+      ></equipped-weapon>`
     );
     el.addEventListener('dice-roll', (event) => {
       diceRoll = event.detail.diceRoll;

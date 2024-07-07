@@ -1,15 +1,15 @@
 ---
 layout: example.11ty.cjs
-title: <weapon-item> ⌲ Examples ⌲ Name Property
+title: <equipped-weapon> ⌲ Examples ⌲ Name Property
 tags: example
 name: Name Property
 description: Setting the name property
 ---
 
-<weapon-item name="Earth"></weapon-item>
+<equipped-weapon name="Earth"></equipped-weapon>
 
 <h3>HTML</h3>
 
 ```html
-<weapon-item name="Earth"></weapon-item>
+<equipped-weapon name="Earth"></equipped-weapon>
 ```

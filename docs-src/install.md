@@ -1,16 +1,16 @@
 ---
 layout: page.11ty.cjs
-title: <weapon-item> ⌲ Install
+title: <equipped-weapon> ⌲ Install
 ---
 
 # Install
 
-`<weapon-item>` is distributed on npm, so you can install it locally or use it via npm CDNs like unpkg.com.
+`<equipped-weapon>` is distributed on npm, so you can install it locally or use it via npm CDNs like unpkg.com.
 
 ## Local Installation
 
 ```bash
-npm i weapon-item
+npm i equipped-weapon
 ```
 
 ## CDN
@@ -22,11 +22,11 @@ For this element to work from unpkg.com specifically, you need to include the `?
 ### HTML
 
 ```html
-<script type="module" src="https://unpkg.com/weapon-item?module"></script>
+<script type="module" src="https://unpkg.com/equipped-weapon?module"></script>
 ```
 
 ### JavaScript
 
 ```html
-import {MyElement} from 'https://unpkg.com/weapon-item?module';
+import {MyElement} from 'https://unpkg.com/equipped-weapon?module';
 ```
