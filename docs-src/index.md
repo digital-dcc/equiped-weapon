@@ -1,27 +1,27 @@
 ---
 layout: page.11ty.cjs
-title: <melee-weapon> ⌲ Home
+title: <weapon-item> ⌲ Home
 ---
 
-# &lt;melee-weapon>
+# &lt;weapon-item>
 
-`<melee-weapon>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
+`<weapon-item>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
 
 ## As easy as HTML
 
 <section class="columns">
   <div>
 
-`<melee-weapon>` is just an HTML element. You can it anywhere you can use HTML!
+`<weapon-item>` is just an HTML element. You can it anywhere you can use HTML!
 
 ```html
-<melee-weapon></melee-weapon>
+<weapon-item></weapon-item>
 ```
 
   </div>
   <div>
 
-<melee-weapon></melee-weapon>
+<weapon-item></weapon-item>
 
   </div>
 </section>
@@ -31,16 +31,16 @@ title: <melee-weapon> ⌲ Home
 <section class="columns">
   <div>
 
-`<melee-weapon>` can be configured with attributed in plain HTML.
+`<weapon-item>` can be configured with attributed in plain HTML.
 
 ```html
-<melee-weapon name="HTML"></melee-weapon>
+<weapon-item name="HTML"></weapon-item>
 ```
 
   </div>
   <div>
 
-<melee-weapon name="HTML"></melee-weapon>
+<weapon-item name="HTML"></weapon-item>
 
   </div>
 </section>
@@ -50,7 +50,7 @@ title: <melee-weapon> ⌲ Home
 <section class="columns">
   <div>
 
-`<melee-weapon>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
+`<weapon-item>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
 
 ```js
 import {html, render} from 'lit-html';
@@ -59,8 +59,8 @@ const name = 'lit-html';
 
 render(
   html`
-    <h2>This is a &lt;melee-weapon&gt;</h2>
-    <melee-weapon .name=${name}></melee-weapon>
+    <h2>This is a &lt;weapon-item&gt;</h2>
+    <weapon-item .name=${name}></weapon-item>
   `,
   document.body
 );
@@ -69,8 +69,8 @@ render(
   </div>
   <div>
 
-<h2>This is a &lt;melee-weapon&gt;</h2>
-<melee-weapon name="lit-html"></melee-weapon>
+<h2>This is a &lt;weapon-item&gt;</h2>
+<weapon-item name="lit-html"></weapon-item>
 
   </div>
 </section>

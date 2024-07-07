@@ -3,10 +3,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;melee-weapon> Demo</title>
+    <title>&lt;weapon-item> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../melee-weapon.js"></script>
+    <script type="module" src="../weapon-item.js"></script>
     <style>
       .wrapper {
         display: flex;
@@ -30,32 +30,32 @@
   <body>
     <div class="wrapper">
       <h3>Main hand / Off hand</h3>
-      <melee-weapon
+      <weapon-item
         id="my-cool-longsword"
         strength="18"
         agility="18"
         weapon="Longsword"
         wielding="dual-wield-main-hand"
-      ></melee-weapon>
+      ></weapon-item>
 
-      <melee-weapon
+      <weapon-item
         strength="18"
         agility="18"
         weapon="Dagger"
         wielding="dual-wield-off-hand"
-      ></melee-weapon>
+      ></weapon-item>
 
       <h3>melee 12/12 Longsword</h3>
-      <melee-weapon
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Longsword"
-      ></melee-weapon>
+      ></weapon-item>
 
       <h3>melee 15/13 Mace</h3>
-      <melee-weapon strength="15" agility="13" weapon="Mace"></melee-weapon>
+      <weapon-item strength="15" agility="13" weapon="Mace"></weapon-item>
 
-      <melee-weapon
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Longsword"
@@ -64,10 +64,10 @@
         damage-die="d5"
         attack-modifier-adjustment="+1"
         damage-modifier-adjustment="+2"
-      ></melee-weapon>
+      ></weapon-item>
 
       <h3>melee 12/12 Longsword d16/d5 am +1, dma +2, amo=+3, dmo=+3</h3>
-      <melee-weapon
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Longsword"
@@ -78,29 +78,29 @@
         damage-modifier-adjustment="+2"
         attack-modifier-override="+3"
         damage-modifier-override="+3"
-      ></melee-weapon>
+      ></weapon-item>
 
       <h3>Melee vs Missile dagger</h3>
-      <melee-weapon strength="13" agility="8" weapon="Dagger"></melee-weapon>
-      <melee-weapon strength="13" agility="8" weapon="Dagger"></melee-weapon>
-      <melee-weapon
+      <weapon-item strength="13" agility="8" weapon="Dagger"></weapon-item>
+      <weapon-item strength="13" agility="8" weapon="Dagger"></weapon-item>
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Blackjack"
-      ></melee-weapon>
-      <melee-weapon
+      ></weapon-item>
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Two-handed sword"
-      ></melee-weapon>
-      <melee-weapon
+      ></weapon-item>
+      <weapon-item
         strength="12"
         agility="12"
         weapon="Mace"
         subdual-damage
-      ></melee-weapon>
-      <melee-weapon strength="12" agility="12" weapon="Longbow"></melee-weapon>
-      <melee-weapon strength="12" agility="12" weapon="Longbow" firing-into-melee></melee-weapon>
+      ></weapon-item>
+      <weapon-item strength="12" agility="12" weapon="Longbow"></weapon-item>
+      <weapon-item strength="12" agility="12" weapon="Longbow" firing-into-melee></weapon-item>
     </div>
   </body>
 </html>

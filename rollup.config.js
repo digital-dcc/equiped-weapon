@@ -10,9 +10,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: 'melee-weapon.js',
+  input: 'weapon-item.js',
   output: {
-    file: 'melee-weapon.bundled.js',
+    file: 'weapon-item.bundled.js',
     format: 'esm',
   },
   onwarn(warning) {

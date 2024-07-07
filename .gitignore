@@ -1,4 +1,4 @@
 /node_modules/
 custom-elements.json
 # only generated for size check
-melee-weapon.bundled.js
+weapon-item.bundled.js

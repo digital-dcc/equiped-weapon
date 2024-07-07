@@ -6,7 +6,7 @@ module.exports = class Docs {
   data() {
     return {
       layout: 'page.11ty.cjs',
-      title: '<melee-weapon> ⌲ Docs',
+      title: '<weapon-item> ⌲ Docs',
     };
   }
 

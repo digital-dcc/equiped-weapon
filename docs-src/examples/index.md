@@ -1,20 +1,20 @@
 ---
 layout: example.11ty.cjs
-title: <melee-weapon> ⌲ Examples ⌲ Basic
+title: <weapon-item> ⌲ Examples ⌲ Basic
 tags: example
 name: Basic
 description: A basic example
 ---
 
 <style>
-  melee-weapon p {
+  weapon-item p {
     border: solid 1px blue;
     padding: 8px;
   }
 </style>
-<melee-weapon>
+<weapon-item>
   <p>This is child content</p>
-</melee-weapon>
+</weapon-item>
 
 <h3>CSS</h3>
 
@@ -28,7 +28,7 @@ p {
 <h3>HTML</h3>
 
 ```html
-<melee-weapon>
+<weapon-item>
   <p>This is child content</p>
-</melee-weapon>
+</weapon-item>
 ```
