@@ -199,8 +199,10 @@ export class EquippedWeapon extends LitElement {
       <div class="wrapper" part="wrapper">
         <header part="header">
           <div class="text">
-            <h1 part="title">${this.type === 'melee' ? 'Melee' : 'Missile'}</h1>
-            <h2 part="subtitle">${this.weapon}</h2>
+            <h1 part="title">${this.weapon}</h1>
+            <h2 part="subtitle">
+              ${this.type === 'melee' ? 'Melee' : 'Missile'}
+            </h2>
             ${this.weaponRangeSelector}
           </div>
           <div class="buttons">
