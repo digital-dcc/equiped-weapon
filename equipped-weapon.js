@@ -131,9 +131,9 @@ export class EquippedWeapon extends LitElement {
         type: String,
         reflect: true,
       },
-      firingIntoMelee: {
+      attackerFiringIntoMelee: {
         type: Boolean,
-        attribute: 'firing-into-melee',
+        attribute: 'attacker-firing-into-melee',
       },
       range: {state: true},
       attackDieAdjustment: {state: true},
@@ -161,6 +161,7 @@ export class EquippedWeapon extends LitElement {
     this.attackerSqueezing = false;
     this.attackerEntangled = false;
     this.attackerUntrained = false;
+    this.attackerFiringIntoMelee = false;
     this.attackerMounted = false;
     this.attackerCharging = false;
     this.attackerSneakAttacking = false;
@@ -171,7 +172,6 @@ export class EquippedWeapon extends LitElement {
     this.opponentProne = false;
 
     this.attackDieAdjustment = 0;
-    this.firingIntoMelee = false;
     this.range = null;
   }
 
@@ -409,7 +409,8 @@ export class EquippedWeapon extends LitElement {
 
     dr.conditions.attacker.charging = this.attackerCharging;
     dr.conditions.attacker.entangled = this.attackerCharging;
-    dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
+    dr.conditions.attacker.attackerFiringIntoMelee =
+      this.attackerFiringIntoMelee;
     dr.conditions.attacker.invisible = this.attackerInvisible;
     dr.conditions.attacker.mounted = this.attackerMounted;
     dr.conditions.attacker.onHigherGround = this.attackerOnHigherGround;
@@ -441,7 +442,8 @@ export class EquippedWeapon extends LitElement {
 
     dr.conditions.attacker.charging = this.attackerCharging;
     dr.conditions.attacker.entangled = this.attackerCharging;
-    dr.conditions.attacker.firingIntoMelee = this.firingIntoMelee;
+    dr.conditions.attacker.attackerFiringIntoMelee =
+      this.attackerFiringIntoMelee;
     dr.conditions.attacker.invisible = this.attackerInvisible;
     dr.conditions.attacker.mounted = this.attackerMounted;
     dr.conditions.attacker.onHigherGround = this.attackerOnHigherGround;
@@ -573,7 +575,7 @@ export class EquippedWeapon extends LitElement {
     if (this.type === 'missile') {
       modifier = modifierFor(this.agility);
       if (this.range === 'medium') modifier -= 2;
-      if (this.firingIntoMelee) modifier -= 1;
+      if (this.attackerFiringIntoMelee) modifier -= 1;
       if (this.opponentProne) modifier -= 2;
     }
 
