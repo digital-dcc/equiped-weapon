@@ -1,7 +1,7 @@
 {
   "name": "@digital-dcc/equipped-weapon",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple web component",
   "main": "equipped-weapon.js",
   "module": "equipped-weapon.js",
