@@ -34,6 +34,10 @@ export class EquippedWeapon extends LitElement {
   static get properties() {
     return {
       // attributes
+      theme: {
+        type: String,
+        reflect: true,
+      },
       strength: {
         type: Number,
         required: true,
@@ -143,6 +147,7 @@ export class EquippedWeapon extends LitElement {
 
   constructor() {
     super();
+    this.theme = null;
     this.type = null;
     this.strength = null;
     this.agility = null;
